@@ -1,0 +1,4 @@
+package com.wallapop.model
+
+
+
