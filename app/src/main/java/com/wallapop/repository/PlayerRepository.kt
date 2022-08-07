@@ -1,12 +1,8 @@
 package com.wallapop.repository
 
-import android.util.Log
 import com.wallapop.model.Card
 import com.wallapop.model.Deck
 import com.wallapop.model.Player
-import com.wallapop.util.Constants
-import com.wallapop.util.shuffle
-import java.util.concurrent.ConcurrentLinkedQueue
 
 /**
  * A group of *members*.
@@ -38,7 +34,10 @@ class PlayerRepository(private val deck: Deck, private val players: ArrayList<Pl
      * Receives [Card]s , to play a single round.
      * @return an [ArrayList<Pair<String, Boolean?>>] for consumption by the UI.
      */
-    fun playAround(cardFromPlayer1: Card, cardFromPlayer2: Card) : ArrayList<Pair<String, Boolean?>> {
+    fun playAround(
+        cardFromPlayer1: Card,
+        cardFromPlayer2: Card
+    ): ArrayList<Pair<String, Boolean?>> {
         val items = arrayListOf<Pair<String, Boolean?>>()
 
         //remove the cards from the round
@@ -64,24 +63,49 @@ class PlayerRepository(private val deck: Deck, private val players: ArrayList<Pl
     /**
      * @return an [ArrayList<Pair<String, Boolean?>>] for consumption by the UI.
      */
-    fun playGame() : ArrayList<Pair<String, Boolean?>> {
+    fun playGame(): ArrayList<Pair<String, Boolean?>> {
         val items = arrayListOf<Pair<String, Boolean?>>()
 
         for (i in 1..(deck.cards.size / 2)) {
             if (players[0].deckPile.size > i && players[1].deckPile.size > 1) {
-                items.addAll(playAround(players[0].deckPile.elementAt(i), players[1].deckPile.elementAt(i)))
+                items.addAll(
+                    playAround(
+                        players[0].deckPile.elementAt(i),
+                        players[1].deckPile.elementAt(i)
+                    )
+                )
             }
         }
 
-        items.add(Pair("Player ${players[0].name} deck size ${players[0].deckPile.size} discard size ${players[0].discardPile.size}", null))
-        items.add(Pair("Player ${players[1].name} deck size ${players[1].deckPile.size} discard size ${players[1].discardPile.size}", null))
+        items.add(
+            Pair(
+                "Player ${players[0].name} deck size ${players[0].deckPile.size} discard size ${players[0].discardPile.size}",
+                null
+            )
+        )
+        items.add(
+            Pair(
+                "Player ${players[1].name} deck size ${players[1].deckPile.size} discard size ${players[1].discardPile.size}",
+                null
+            )
+        )
 
         if (players[0].discardPile.size > players[1].discardPile.size) {
 
-            items.add(Pair("WON by Player ${players[0].name} discard size ${players[0].discardPile.size}", false))
+            items.add(
+                Pair(
+                    "WON by Player ${players[0].name} discard size ${players[0].discardPile.size}",
+                    false
+                )
+            )
         } else {
 
-            items.add(Pair("WON by Player ${players[1].name} discard size ${players[1].discardPile.size}", false))
+            items.add(
+                Pair(
+                    "WON by Player ${players[1].name} discard size ${players[1].discardPile.size}",
+                    false
+                )
+            )
         }
 
         return items

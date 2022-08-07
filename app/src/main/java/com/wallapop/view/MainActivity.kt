@@ -1,10 +1,8 @@
 package com.wallapop.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.wallapop.R
+import androidx.appcompat.app.AppCompatActivity
 import com.wallapop.adapter.GameRoundListAdapter
 import com.wallapop.databinding.ActivityMainBinding
 import com.wallapop.model.Deck
@@ -36,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun setupList(){
+    private fun setupList() {
         adapter = GameRoundListAdapter()
         //binding.playList.layoutManager = LinearLayoutManager(this)
         adapter.setItems(items)
@@ -45,7 +43,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun playNewGame(){
+    private fun playNewGame() {
 
         //setup UI
         playGameUI()
@@ -102,7 +100,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun playGameUI(){
+    private fun playGameUI() {
         binding.playList.showView()
         binding.welcomeTitle.hideView()
         binding.startResetGameBtn.text = "Play Again"

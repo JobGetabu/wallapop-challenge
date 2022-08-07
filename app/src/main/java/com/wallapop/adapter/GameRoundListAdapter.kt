@@ -34,7 +34,6 @@ class GameRoundListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     fun setItems(items: ArrayList<Pair<String, Boolean?>>) {
         this.items = items
         notifyDataSetChanged()
-
     }
 
     fun clear() {
