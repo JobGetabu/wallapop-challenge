@@ -22,7 +22,9 @@ class PlayerRepository(private val deck: Deck, private val players: ArrayList<Pl
 
     fun getCards() = deck.cards
 
-    fun shuffleDeck() = shuffle(getCards())
+    fun getPlayers() = players
+
+    fun shuffleDeck() = deck.shuffleMyList()
 
     /**
      * Gives each [Player] cards equally and randomly
@@ -36,7 +38,7 @@ class PlayerRepository(private val deck: Deck, private val players: ArrayList<Pl
      * Receives [Card]s , to play a single round.
      * @return an [ArrayList<Pair<String, Boolean?>>] for consumption by the UI.
      */
-    private fun playAround(cardFromPlayer1: Card, cardFromPlayer2: Card) : ArrayList<Pair<String, Boolean?>> {
+    fun playAround(cardFromPlayer1: Card, cardFromPlayer2: Card) : ArrayList<Pair<String, Boolean?>> {
         val items = arrayListOf<Pair<String, Boolean?>>()
 
         //remove the cards from the round
