@@ -1,9 +1,13 @@
 package com.wallapop.model
 
+import com.wallapop.util.shuffle
+
 class Deck {
     val cards: MutableList<Card>
 
-    fun shuffle() = cards.shuffle()
+    fun shuffleMyList() {
+        shuffle(cards)
+    }
 
     init {
         cards = ArrayList()
