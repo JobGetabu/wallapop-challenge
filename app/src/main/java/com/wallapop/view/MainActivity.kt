@@ -66,8 +66,8 @@ class MainActivity : AppCompatActivity() {
 
         //create players
         val players = arrayListOf<Player>()
-        players.add(Player("one", ConcurrentLinkedQueue(), ConcurrentLinkedQueue()))
-        players.add(Player("two", ConcurrentLinkedQueue(), ConcurrentLinkedQueue()))
+        players.add(Player("Professor X", ConcurrentLinkedQueue(), ConcurrentLinkedQueue()))
+        players.add(Player("Magneto", ConcurrentLinkedQueue(), ConcurrentLinkedQueue()))
 
         Log.d(Constants.TAG, " $$players")
 
@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
     private fun playGameUI(){
         binding.playList.showView()
         binding.welcomeTitle.hideView()
-        binding.startResetGameBtn.text = "Reset Game"
+        binding.startResetGameBtn.text = "Play Again"
 
         binding.startResetGameBtn.setOnClickListener {
             adapter.clear()

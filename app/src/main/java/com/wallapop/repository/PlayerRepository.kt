@@ -8,18 +8,35 @@ import com.wallapop.util.Constants
 import com.wallapop.util.shuffle
 import java.util.concurrent.ConcurrentLinkedQueue
 
+/**
+ * A group of *members*.
+ *
+ * This class acts as a Game class for the entire business logic
+ * It combines the different properties of classes to bring to life the
+ * gaming & dealer aspect of pocker
+ *
+ * @param deck accepts a Deck class.
+ * @param players  accepts a list of players
+ */
 class PlayerRepository(private val deck: Deck, private val players: ArrayList<Player>) {
 
     fun getCards() = deck.cards
 
     fun shuffleDeck() = shuffle(getCards())
 
+    /**
+     * Gives each [Player] cards equally and randomly
+     */
     fun shuffleCardsToPlayers() {
         players[0].deckPile.addAll(deck.cards.subList(0, deck.cards.size / 2))
         players[1].deckPile.addAll(deck.cards.subList(deck.cards.size / 2, deck.cards.size))
     }
 
-    fun playAround(cardFromPlayer1: Card, cardFromPlayer2: Card) : ArrayList<Pair<String, Boolean?>> {
+    /**
+     * Receives [Card]s , to play a single round.
+     * @return an [ArrayList<Pair<String, Boolean?>>] for consumption by the UI.
+     */
+    private fun playAround(cardFromPlayer1: Card, cardFromPlayer2: Card) : ArrayList<Pair<String, Boolean?>> {
         val items = arrayListOf<Pair<String, Boolean?>>()
 
         //remove the cards from the round
@@ -44,6 +61,9 @@ class PlayerRepository(private val deck: Deck, private val players: ArrayList<Pl
         return items
     }
 
+    /**
+     * @return an [ArrayList<Pair<String, Boolean?>>] for consumption by the UI.
+     */
     fun playGame() : ArrayList<Pair<String, Boolean?>> {
         val items = arrayListOf<Pair<String, Boolean?>>()
 
