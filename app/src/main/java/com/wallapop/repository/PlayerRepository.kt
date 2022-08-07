@@ -50,13 +50,11 @@ class PlayerRepository(private val deck: Deck, private val players: ArrayList<Pl
             players[0].discardPile.add(cardFromPlayer1)
             players[0].discardPile.add(cardFromPlayer2)
 
-            Log.d(Constants.TAG, "PlayerOne wins $cardFromPlayer1 > $cardFromPlayer2")
             items.add(Pair("PlayerOne wins $cardFromPlayer1 > $cardFromPlayer2", true))
         } else {
             players[1].discardPile.add(cardFromPlayer1)
             players[1].discardPile.add(cardFromPlayer2)
 
-            Log.d(Constants.TAG, "PlayerTwo wins $cardFromPlayer2 > $cardFromPlayer1")
             items.add(Pair("PlayerTwo wins $cardFromPlayer2 > $cardFromPlayer1", false))
         }
 
@@ -75,18 +73,13 @@ class PlayerRepository(private val deck: Deck, private val players: ArrayList<Pl
             }
         }
 
-        Log.d(Constants.TAG, "Player ${players[0].name} deck size ${players[0].deckPile.size} discard size ${players[0].discardPile.size}")
-        Log.d(Constants.TAG, "Player ${players[1].name} deck size ${players[1].deckPile.size} discard size ${players[1].discardPile.size}")
-
         items.add(Pair("Player ${players[0].name} deck size ${players[0].deckPile.size} discard size ${players[0].discardPile.size}", null))
         items.add(Pair("Player ${players[1].name} deck size ${players[1].deckPile.size} discard size ${players[1].discardPile.size}", null))
 
         if (players[0].discardPile.size > players[1].discardPile.size) {
-            Log.d(Constants.TAG, "WON by $${players[0]}")
 
             items.add(Pair("WON by Player ${players[0].name} discard size ${players[0].discardPile.size}", false))
         } else {
-            Log.d(Constants.TAG, "WON by $${players[1]}")
 
             items.add(Pair("WON by Player ${players[1].name} discard size ${players[1].discardPile.size}", false))
         }

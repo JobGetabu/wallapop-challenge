@@ -1,8 +1,11 @@
 package com.wallapop.repository
 
+import android.util.Log
 import com.wallapop.model.*
 import io.mockk.MockKAnnotations
+import io.mockk.every
 import io.mockk.impl.annotations.RelaxedMockK
+import io.mockk.mockkStatic
 import io.mockk.unmockkAll
 import org.junit.After
 import org.junit.Assert
@@ -23,6 +26,7 @@ class PlayerRepositoryTest {
     @Before
     fun setUp() {
         MockKAnnotations.init(this)
+        mockkStatic(Log::class)
 
         val players = arrayListOf<Player>()
         players.add(Player("Professor X", ConcurrentLinkedQueue(), ConcurrentLinkedQueue()))
@@ -82,10 +86,12 @@ class PlayerRepositoryTest {
         val result =
             playerRepository.playAround(Card(Rank.TWO, Suit.HEART), Card(Rank.ACE, Suit.CLUBS))
 
+        every { Log.d(any(), any()) } returns 0
+
         Assert.assertEquals(
             result.lastOrNull(),
             Pair(
-                "PlayerTwo wins $${Card(Rank.ACE, Suit.CLUBS)} > $${Card(Rank.TWO, Suit.HEART)}",
+                "PlayerTwo wins ${Card(Rank.ACE, Suit.CLUBS)} > ${Card(Rank.TWO, Suit.HEART)}",
                 false
             )
         )
@@ -99,18 +105,24 @@ class PlayerRepositoryTest {
         Assert.assertEquals(
             result.lastOrNull(),
             Pair(
-                "PlayerOne wins $${Card(Rank.ACE, Suit.CLUBS)} > $${Card(Rank.TWO, Suit.HEART)}",
-                false
+                "PlayerOne wins ${Card(Rank.ACE, Suit.CLUBS)} > ${Card(Rank.TWO, Suit.HEART)}",
+                true
             )
         )
     }
 
     @Test
     fun `verify playGame() is completely random`() {
+
+        playerRepository.playAround(Card(Rank.ACE, Suit.CLUBS), Card(Rank.TWO, Suit.HEART))
+        playerRepository.playAround(Card(Rank.KING, Suit.CLUBS), Card(Rank.QUEEN, Suit.HEART))
+        playerRepository.playGame()
+
         val discardPileOne = playerRepository.getPlayers()[0].discardPile.size
         val discardPileTwo = playerRepository.getPlayers()[1].discardPile.size
 
-        Assert.assertNotEquals(discardPileOne, discardPileTwo)
+
+        Assert.assertNotSame(discardPileOne, discardPileTwo)
     }
 
     @After
